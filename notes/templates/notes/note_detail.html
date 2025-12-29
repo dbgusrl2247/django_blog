@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ note.title }} - 공부 노트{% endblock %}
+
+{% block content %}
+<article class="card shadow-sm">
+  <div class="card-body">
+    <h1 class="h3 mb-2">{{ note.title }}</h1>
+    <p class="text-muted small mb-4">
+      작성 {{ note.created_at|date:"Y-m-d H:i" }}
+      · 수정 {{ note.updated_at|date:"Y-m-d H:i" }}
+    </p>
+
+    <div class="fs-6">
+      {{ note.content|linebreaks }}
+    </div>
+
+    <div class="d-flex gap-2 mt-4">
+      <a class="btn btn-outline-secondary btn-sm" href="{% url 'note_list' %}">← 목록으로</a>
+      <a class="btn btn-outline-dark btn-sm" href="/admin/notes/note/{{ note.pk }}/change/">
+        <i class="bi bi-pencil"></i> 수정(관리자)
+      </a>
+    </div>
+  </div>
+</article>
+{% endblock %}
