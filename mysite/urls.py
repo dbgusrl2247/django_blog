@@ -1,21 +1,15 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from django.conf import settings
-from django.conf.urls.static import static
-
 urlpatterns = [
     path("admin/", admin.site.urls),
 
-    # pages: /about, /contact
+    # ✅ 메인/소개/연락
     path("", include("pages.urls")),
 
-    # blog: / (목록), /posts/1/ (상세)
+    # ✅ 포스트는 /posts/ 아래로
     path("", include("blog.urls")),
+
+    # ✅ 노트는 /notes/ 아래로
     path("", include("notes.urls")),
-
 ]
-
-# 개발환경에서 media 파일 서빙(배포에서는 다르게 처리)
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

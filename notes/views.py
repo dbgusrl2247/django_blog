@@ -18,4 +18,22 @@ def note_create(request):
             return redirect("note_detail", pk=note.pk)
     else:
         form = NoteForm()
-    return render(request, "notes/note_form.html", {"form": form})
+    return render(request, "notes/note_form.html", {"form": form, "mode": "create"})
+
+def note_update(request, pk):
+    note = get_object_or_404(Note, pk=pk)
+    if request.method == "POST":
+        form = NoteForm(request.POST, instance=note)
+        if form.is_valid():
+            note = form.save()
+            return redirect("note_detail", pk=note.pk)
+    else:
+        form = NoteForm(instance=note)
+    return render(request, "notes/note_form.html", {"form": form, "note": note, "mode": "edit"})
+
+def note_delete(request, pk):
+    note = get_object_or_404(Note, pk=pk)
+    if request.method == "POST":
+        note.delete()
+        return redirect("note_list")
+    return render(request, "notes/note_confirm_delete.html", {"note": note})

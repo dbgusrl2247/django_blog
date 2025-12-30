@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Home - StudyLog{% endblock %}
+
+{% block content %}
+<h2 class="h4 mb-3">바로가기</h2>
+
+<div class="row g-3">
+  <!-- Posts -->
+  <div class="col-md-6">
+    <a href="{% url 'post_list' %}" class="text-decoration-none">
+      <div class="card border hover-lift h-100">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center gap-3">
+            <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width:64px;height:64px;">
+              <i class="bi bi-newspaper text-white fs-2"></i>
+            </div>
+            <div>
+              <div class="h4 fw-bold mb-1 text-light">포스트 페이지</div>
+              <div class="text-secondary">블로그 글 목록으로 이동</div>
+            </div>
+          </div>
+
+          <div class="mt-4 text-end">
+            <span class="btn btn-outline-light btn-lg">포스트로 이동 →</span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Notes -->
+  <div class="col-md-6">
+    <a href="{% url 'note_list' %}" class="text-decoration-none">
+      <div class="card border hover-lift h-100">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center gap-3">
+            <div class="rounded-circle bg-success d-flex align-items-center justify-content-center" style="width:64px;height:64px;">
+              <i class="bi bi-journal-text text-white fs-2"></i>
+            </div>
+            <div>
+              <div class="h4 fw-bold mb-1 text-light">공부 노트</div>
+              <div class="text-secondary">노트 목록으로 이동</div>
+            </div>
+          </div>
+
+          <div class="mt-4 text-end">
+            <span class="btn btn-outline-light btn-lg">노트로 이동 →</span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<hr class="my-4">
+
+<!-- ✅ Developer News (RSS) -->
+<section class="mt-4">
+  <div class="d-flex align-items-center justify-content-between mb-2">
+    <h2 class="h5 mb-0"><i class="bi bi-newspaper"></i> 개발/프로그래밍 이슈</h2>
+    <span class="text-secondary small">RSS 기반</span>
+  </div>
+
+  <div class="card border">
+    <div class="card-body">
+      {% if news_items %}
+        <div class="list-group list-group-flush">
+          {% for n in news_items %}
+            <a class="list-group-item list-group-item-action"
+               href="{{ n.link }}" target="_blank" rel="noopener noreferrer">
+              <div class="d-flex justify-content-between align-items-start gap-2">
+                <div class="fw-semibold">{{ n.title }}</div>
+                <span class="badge text-bg-light border">{{ n.source }}</span>
+              </div>
+              {% if n.published %}
+                <div class="text-secondary small mt-1">{{ n.published }}</div>
+              {% endif %}
+            </a>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="text-secondary">
+          뉴스가 아직 없어요. (네트워크/RSS 차단 또는 로딩 실패 가능)
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="text-secondary small mt-2">
+    * Hacker News / r/programming / Dev.to 등에서 최신 글을 가져옵니다.
+  </div>
+</section>
+{% endblock %}

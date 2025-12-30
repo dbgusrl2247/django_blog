@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}공부 노트 - 나만의 블로그{% endblock %}
+{% block title %}공부 노트 - StudyLog{% endblock %}
 
 {% block content %}
 <div class="d-flex align-items-center justify-content-between mb-3">
@@ -10,7 +10,7 @@
 </div>
 
 {% for note in notes %}
-  <div class="card mb-3 shadow-sm hover-lift">
+  <div class="card mb-3 border hover-lift">
     <div class="card-body d-flex flex-column">
       <h2 class="h5 mb-1">
         <a class="text-decoration-none" href="{% url 'note_detail' note.pk %}">
@@ -33,7 +33,7 @@
   </div>
 {% empty %}
   <div class="alert alert-info">
-    아직 노트가 없어요. /admin에서 노트를 작성해보자!
+    아직 노트가 없어요.
   </div>
 {% endfor %}
 {% endblock %}
